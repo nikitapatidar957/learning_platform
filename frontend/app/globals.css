@@ -1,0 +1,179 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  :root {
+    --background: 220 20% 98%;
+    --foreground: 224 71% 4%;
+    --card: 0 0% 100%;
+    --card-foreground: 224 71% 4%;
+    --popover: 0 0% 100%;
+    --popover-foreground: 224 71% 4%;
+    --primary: 246 80% 60%;
+    --primary-foreground: 210 20% 98%;
+    --secondary: 220 14% 94%;
+    --secondary-foreground: 220 30% 15%;
+    --muted: 220 14% 94%;
+    --muted-foreground: 220 10% 45%;
+    --accent: 246 90% 95%;
+    --accent-foreground: 246 80% 50%;
+    --destructive: 0 84% 60%;
+    --destructive-foreground: 210 20% 98%;
+    --border: 220 13% 88%;
+    --input: 220 13% 88%;
+    --ring: 246 80% 60%;
+    --radius: 0.75rem;
+  }
+
+  .dark {
+    --background: 228 28% 7%;
+    --foreground: 210 20% 98%;
+    --card: 226 24% 11%;
+    --card-foreground: 210 20% 98%;
+    --popover: 226 24% 11%;
+    --popover-foreground: 210 20% 98%;
+    --primary: 246 85% 65%;
+    --primary-foreground: 228 28% 7%;
+    --secondary: 224 20% 16%;
+    --secondary-foreground: 210 20% 98%;
+    --muted: 224 20% 16%;
+    --muted-foreground: 217 19% 65%;
+    --accent: 246 45% 20%;
+    --accent-foreground: 246 95% 85%;
+    --destructive: 0 72% 51%;
+    --destructive-foreground: 210 20% 98%;
+    --border: 224 20% 18%;
+    --input: 224 20% 18%;
+    --ring: 246 85% 65%;
+  }
+}
+
+@layer base {
+  * {
+    @apply border-border;
+  }
+  body {
+    @apply bg-background text-foreground transition-colors duration-200 antialiased;
+    font-feature-settings: "cv02", "cv03", "cv04", "cv11";
+  }
+}
+
+/* Glassmorphism and glow effects */
+.glass {
+  background: rgba(255, 255, 255, 0.7);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+}
+
+.dark .glass {
+  background: rgba(18, 22, 34, 0.75);
+  backdrop-filter: blur(14px);
+  -webkit-backdrop-filter: blur(14px);
+}
+
+.glow-gradient {
+  background: radial-gradient(circle at 50% 50%, rgba(99, 102, 241, 0.15), transparent 70%);
+}
+
+.dark .glow-gradient {
+  background: radial-gradient(circle at 50% 50%, rgba(129, 140, 248, 0.18), transparent 70%);
+}
+
+/* Custom modern scrollbar */
+::-webkit-scrollbar {
+  width: 6px;
+  height: 6px;
+}
+::-webkit-scrollbar-track {
+  background: transparent;
+}
+::-webkit-scrollbar-thumb {
+  background: hsl(var(--muted-foreground) / 0.3);
+  border-radius: 9999px;
+}
+::-webkit-scrollbar-thumb:hover {
+  background: hsl(var(--muted-foreground) / 0.5);
+}
+
+/* Futuristic studio window animations */
+@keyframes border-beam {
+  0% {
+    offset-distance: 0%;
+  }
+  100% {
+    offset-distance: 100%;
+  }
+}
+
+@keyframes gradient-flow {
+  0% {
+    background-position: 0% 50%;
+  }
+  50% {
+    background-position: 100% 50%;
+  }
+  100% {
+    background-position: 0% 50%;
+  }
+}
+
+@keyframes float-subtle {
+  0%, 100% {
+    transform: translateY(0px);
+  }
+  50% {
+    transform: translateY(-8px);
+  }
+}
+
+@keyframes float-slow {
+  0%, 100% {
+    transform: translateY(0px) rotate(0deg);
+  }
+  50% {
+    transform: translateY(-12px) rotate(1deg);
+  }
+}
+
+@keyframes float-delayed {
+  0%, 100% {
+    transform: translateY(0px) rotate(0deg);
+  }
+  50% {
+    transform: translateY(-10px) rotate(-1deg);
+  }
+}
+
+.animate-float {
+  animation: float-subtle 4s ease-in-out infinite;
+}
+
+.animate-float-slow {
+  animation: float-slow 6s ease-in-out infinite;
+}
+
+.animate-float-delayed {
+  animation: float-delayed 5s ease-in-out 1.5s infinite;
+}
+
+
+.window-glow-border {
+  position: relative;
+}
+
+.window-glow-border::before {
+  content: '';
+  position: absolute;
+  inset: -1px;
+  border-radius: inherit;
+  padding: 1.5px;
+  background: linear-gradient(135deg, rgba(99, 102, 241, 0.6), rgba(168, 85, 247, 0.4), rgba(56, 189, 248, 0.6), rgba(99, 102, 241, 0.6));
+  background-size: 300% 300%;
+  animation: gradient-flow 8s ease infinite;
+  -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+  -webkit-mask-composite: xor;
+  mask-composite: exclude;
+  pointer-events: none;
+}
+
