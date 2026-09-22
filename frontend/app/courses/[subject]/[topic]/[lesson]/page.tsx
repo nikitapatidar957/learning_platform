@@ -39,8 +39,9 @@ export default function LessonPage() {
       setSubject(subjectData);
 
       // Auto-start progress tracking if signed in
-      if (isSignedIn && lessonData && lessonData.id) {
-        startLessonProgress(lessonData.id, token).catch(() => {});
+      const lessonIdentifier = lessonData?.slug || lessonData?.id || (lessonData as any)?._id;
+      if (isSignedIn && lessonIdentifier && lessonIdentifier !== 'undefined') {
+        startLessonProgress(lessonIdentifier, token).catch(() => {});
       }
     } catch (err: any) {
       setError(err.message || 'Failed to load lesson content');
@@ -101,7 +102,7 @@ export default function LessonPage() {
       {/* Main Lesson Content Canvas */}
       <main className="flex-1 max-w-4xl mx-auto px-4 sm:px-8 py-8 w-full overflow-hidden">
         <LessonHeader
-          lessonId={lesson.id}
+          lessonId={lesson.slug || lesson.id || (lesson as any)._id}
           lessonTitle={lesson.title}
           lessonSlug={lesson.slug}
           subjectName={subject.name}

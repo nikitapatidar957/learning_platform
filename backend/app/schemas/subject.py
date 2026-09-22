@@ -1,5 +1,5 @@
 from typing import Optional, List
-from pydantic import BaseModel, Field, ConfigDict
+from pydantic import BaseModel, Field, ConfigDict, computed_field
 
 
 class SubjectBase(BaseModel):
@@ -13,12 +13,17 @@ class SubjectBase(BaseModel):
 
 
 class SubjectSummaryResponse(SubjectBase):
-    id: str = Field(alias="_id", default="")
+    id: str = Field(default="")
     topic_count: int = 0
     lesson_count: int = 0
     estimated_hours: Optional[str] = "10+ hrs"
     createdAt: Optional[str] = None
     updatedAt: Optional[str] = None
+
+    @computed_field
+    @property
+    def _id(self) -> str:
+        return self.id
 
     model_config = ConfigDict(populate_by_name=True)
 

@@ -116,53 +116,74 @@ export default function DashboardPage() {
             Welcome back, {userName} 👋
           </h1>
           <p className="text-sm text-muted-foreground mt-1">
-            Pick up where you left off or dive into a new technical discipline.
+            Track your progress, resume ongoing courses, and master modern computer science.
           </p>
         </div>
 
         <Link href="/courses">
-          <Button variant="outline" size="sm">
-            <Compass className="h-4 w-4 mr-1.5" /> Browse All Courses
-          </Button>
+          <button className="px-5 py-2.5 rounded-full bg-primary/10 hover:bg-[#5046e5] text-primary hover:text-white text-xs sm:text-sm font-semibold border border-primary/20 hover:border-transparent transition-all shadow-sm flex items-center space-x-2 cursor-pointer group">
+            <Compass className="h-4 w-4 group-hover:rotate-45 transition-transform" />
+            <span>Explore All Courses</span>
+            <ArrowRight className="h-3.5 w-3.5" />
+          </button>
         </Link>
       </div>
 
-      {/* Continue Learning Resume Card */}
+      {/* Continue Learning Resume Card (or Inspiring Onboarding State before starting) */}
       <ContinueLearningCard currentLesson={progress.current_lesson} />
 
       {/* Progress Metric Statistics */}
       <DashboardStats progress={progress} />
 
-      {/* Recently Viewed Lessons */}
-      {progress.recently_viewed && progress.recently_viewed.length > 0 && (
-        <div className="space-y-4">
-          <div className="flex items-center space-x-2">
-            <History className="h-4 w-4 text-primary" />
-            <h3 className="text-lg font-bold text-foreground">Recently Viewed</h3>
-          </div>
+      {/* Recently Viewed Lessons (Only valid, fully routable lessons) */}
+      {(() => {
+        const validRecentlyViewed = (progress.recently_viewed || []).filter(
+          (item) =>
+            item &&
+            item.lesson_slug &&
+            item.lesson_slug !== 'undefined' &&
+            item.subject_slug &&
+            item.subject_slug !== 'undefined' &&
+            item.topic_slug &&
+            item.topic_slug !== 'undefined' &&
+            item.lesson_title &&
+            item.lesson_title !== 'undefined'
+        );
 
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
-            {progress.recently_viewed.map((item, idx) => (
-              <Link
-                key={idx}
-                href={`/courses/${item.subject_slug}/${item.topic_slug}/${item.lesson_slug}`}
-                className="p-4 rounded-xl border border-border bg-card hover:border-primary/40 hover:shadow-md transition-all group"
-              >
-                <div className="flex items-center justify-between text-[11px] text-muted-foreground mb-1">
-                  <span className="uppercase font-mono font-semibold">{item.subject_slug}</span>
-                  <span className="font-semibold text-primary">{item.progress_percentage}%</span>
-                </div>
-                <h4 className="text-sm font-semibold text-foreground group-hover:text-primary transition-colors line-clamp-1">
-                  {item.lesson_title}
-                </h4>
-                <div className="flex items-center justify-between mt-3 text-xs text-primary font-medium">
-                  <span>Resume →</span>
-                </div>
-              </Link>
-            ))}
+        if (validRecentlyViewed.length === 0) return null;
+
+        return (
+          <div className="space-y-4">
+            <div className="flex items-center space-x-2">
+              <History className="h-4 w-4 text-primary" />
+              <h3 className="text-lg font-bold text-foreground">Recently Viewed</h3>
+            </div>
+
+            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
+              {validRecentlyViewed.map((item, idx) => (
+                <Link
+                  key={idx}
+                  href={`/courses/${item.subject_slug}/${item.topic_slug}/${item.lesson_slug}`}
+                  className="p-4 rounded-2xl border border-border bg-card hover:border-primary/50 hover:shadow-md transition-all group"
+                >
+                  <div className="flex items-center justify-between text-[11px] text-muted-foreground mb-1.5">
+                    <span className="uppercase font-mono font-bold text-[10px] px-2 py-0.5 rounded bg-muted">
+                      {item.subject_slug}
+                    </span>
+                    <span className="font-semibold text-primary">{item.progress_percentage}%</span>
+                  </div>
+                  <h4 className="text-sm font-bold text-foreground group-hover:text-primary transition-colors line-clamp-1">
+                    {item.lesson_title}
+                  </h4>
+                  <div className="flex items-center justify-between mt-3 text-xs text-primary font-medium">
+                    <span>Resume Lesson →</span>
+                  </div>
+                </Link>
+              ))}
+            </div>
           </div>
-        </div>
-      )}
+        );
+      })()}
 
       {/* Enrolled & Available Subjects */}
       <div className="space-y-6 pt-4">

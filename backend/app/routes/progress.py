@@ -45,6 +45,11 @@ def start_or_update_progress(
     service: ProgressService = Depends(get_progress_service),
 ):
     """Mark a lesson as in-progress or update progress percentage."""
+    if not lesson_id or lesson_id in ("undefined", "null"):
+        raise HTTPException(
+            status_code=status.HTTP_400_BAD_REQUEST,
+            detail="Invalid lesson identifier",
+        )
     return service.update_progress(
         user_id=current_user.clerk_user_id,
         lesson_id=lesson_id,
@@ -61,6 +66,11 @@ def patch_lesson_progress(
     service: ProgressService = Depends(get_progress_service),
 ):
     """Mark a lesson as completed (or update progress)."""
+    if not lesson_id or lesson_id in ("undefined", "null"):
+        raise HTTPException(
+            status_code=status.HTTP_400_BAD_REQUEST,
+            detail="Invalid lesson identifier",
+        )
     return service.update_progress(
         user_id=current_user.clerk_user_id,
         lesson_id=lesson_id,

@@ -51,14 +51,19 @@ class ProgressService:
     ) -> ProgressResponse:
         now = datetime.now(timezone.utc).isoformat()
         
+        if not lesson_id or lesson_id in ("undefined", "null"):
+            raise ValueError("Invalid lesson identifier")
+
         # Look up lesson details to enrich progress record
         lesson_filter = {"_id": ObjectId(lesson_id)} if ObjectId.is_valid(lesson_id) else {"slug": lesson_id}
         lesson = self.db.lessons.find_one(lesson_filter)
+        if not lesson:
+            raise ValueError(f"Lesson '{lesson_id}' not found")
         
-        lesson_id_str = str(lesson["_id"]) if lesson else lesson_id
-        lesson_slug = lesson["slug"] if lesson else (lesson_id if not ObjectId.is_valid(lesson_id) else "")
-        subject_slug = lesson.get("subjectSlug", "") if lesson else ""
-        topic_slug = lesson.get("topicSlug", "") if lesson else ""
+        lesson_id_str = str(lesson["_id"])
+        lesson_slug = lesson["slug"]
+        subject_slug = lesson.get("subjectSlug", "")
+        topic_slug = lesson.get("topicSlug", "")
 
         existing = self.db.progress.find_one({
             "user_id": user_id,
@@ -148,21 +153,36 @@ class ProgressService:
             user_progress_docs,
             key=lambda x: x.get("last_accessed_at", ""),
             reverse=True
-        )[:5]
+        )[:10]
 
         recently_viewed = []
         for r in recent_sorted:
-            l_info = self.db.lessons.find_one({"slug": r.get("lesson_slug")}) or {}
-            recently_viewed.append({
-                "lesson_id": r.get("lesson_id"),
-                "lesson_slug": r.get("lesson_slug"),
-                "lesson_title": l_info.get("title", r.get("lesson_slug")),
-                "subject_slug": r.get("subject_slug"),
-                "topic_slug": r.get("topic_slug"),
-                "status": r.get("status"),
-                "progress_percentage": r.get("progress_percentage", 0),
-                "last_accessed_at": r.get("last_accessed_at"),
-            })
+            l_slug = r.get("lesson_slug")
+            l_id = r.get("lesson_id")
+            if not l_slug or l_slug in ("undefined", "null") or not l_id or l_id in ("undefined", "null"):
+                continue
+
+            l_filter = {"slug": l_slug} if l_slug else ({"_id": ObjectId(l_id)} if ObjectId.is_valid(l_id) else None)
+            l_info = self.db.lessons.find_one(l_filter) if l_filter else None
+
+            subject_slug = r.get("subject_slug") or (l_info.get("subjectSlug") if l_info else "")
+            topic_slug = r.get("topic_slug") or (l_info.get("topicSlug") if l_info else "")
+            title = (l_info.get("title") if l_info else None) or r.get("lesson_title") or l_slug
+
+            # Only accept fully routable lessons with valid slugs
+            if subject_slug and topic_slug and l_slug:
+                recently_viewed.append({
+                    "lesson_id": str(l_id),
+                    "lesson_slug": l_slug,
+                    "lesson_title": title,
+                    "subject_slug": subject_slug,
+                    "topic_slug": topic_slug,
+                    "status": r.get("status", "in_progress"),
+                    "progress_percentage": r.get("progress_percentage", 0),
+                    "last_accessed_at": r.get("last_accessed_at"),
+                })
+                if len(recently_viewed) >= 5:
+                    break
 
         current_lesson = recently_viewed[0] if recently_viewed else None
 

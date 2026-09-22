@@ -1,5 +1,5 @@
 from typing import Optional, List, Dict, Any
-from pydantic import BaseModel, Field, ConfigDict
+from pydantic import BaseModel, Field, ConfigDict, computed_field
 
 
 class LessonSection(BaseModel):
@@ -18,7 +18,7 @@ class LessonContent(BaseModel):
 
 
 class LessonSummaryResponse(BaseModel):
-    id: str = Field(alias="_id", default="")
+    id: str = Field(default="")
     topicId: str
     topicSlug: str
     subjectSlug: str
@@ -31,6 +31,11 @@ class LessonSummaryResponse(BaseModel):
     isPublished: bool = True
     interactiveType: Optional[str] = None
     status: Optional[str] = "not_started"
+
+    @computed_field
+    @property
+    def _id(self) -> str:
+        return self.id
 
     model_config = ConfigDict(populate_by_name=True)
 
