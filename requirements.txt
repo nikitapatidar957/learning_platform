@@ -1,0 +1,7 @@
+# check brew services start mongodb-community
+# nikita@Nikitas-MacBook-Air learning_platform % cd /Users/nikita/Documents/notes_app/learning_platform/frontend
+# npm run dev
+# (learning-platform-env) (.venv) nikita@Nikitas-MacBook-Air backend % uvicorn app.main:app --reload --host 0.0.0.0 --port 8000
+# python3.12 -m venv .venv
+# /opt/miniconda3/bin/conda --version
+# source .venv/bin/activate
