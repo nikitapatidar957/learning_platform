@@ -10,6 +10,7 @@ from app.routes.topics import router as topics_router
 from app.routes.lessons import router as lessons_router
 from app.routes.progress import router as progress_router
 from app.routes.search import router as search_router
+from app.routes.content import router as content_router
 
 logging.basicConfig(
     level=logging.INFO,
@@ -57,6 +58,8 @@ app.include_router(topics_router)
 app.include_router(lessons_router)
 app.include_router(progress_router)
 app.include_router(search_router)
+app.include_router(content_router)
+
 
 
 @app.get("/", tags=["Health"])

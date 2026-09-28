@@ -11,6 +11,9 @@ import {
   Sparkles,
   Wand2,
   Bot,
+  Terminal,
+  GitBranch,
+  Cloud,
   ArrowRight,
   BookOpen,
   Clock,
@@ -43,6 +46,15 @@ export function SubjectCard({ subject, progressPercentage = 0 }: SubjectCardProp
         return <Wand2 className="h-6 w-6 text-pink-500" />;
       case 'bot':
         return <Bot className="h-6 w-6 text-rose-500" />;
+      case 'terminal':
+      case 'code':
+        return <Terminal className="h-6 w-6 text-emerald-500" />;
+      case 'git':
+      case 'gitbranch':
+        return <GitBranch className="h-6 w-6 text-orange-500" />;
+      case 'aws':
+      case 'cloud':
+        return <Cloud className="h-6 w-6 text-sky-500" />;
       default:
         return <BookOpen className="h-6 w-6 text-primary" />;
     }

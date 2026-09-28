@@ -88,6 +88,19 @@ export function Navbar() {
               Courses
             </Link>
             <Link
+              href="/revision"
+              className={`relative py-1 text-sm font-medium transition-colors flex items-center space-x-1.5 ${
+                isActive('/revision')
+                  ? 'text-primary font-bold after:absolute after:-bottom-2 after:left-1/2 after:-translate-x-1/2 after:w-6 after:h-[2.5px] after:bg-primary after:rounded-full'
+                  : 'text-muted-foreground hover:text-foreground'
+              }`}
+            >
+              <span>Revision Hub</span>
+              <span className="px-1.5 py-0.2 rounded-full text-[10px] font-bold bg-primary/15 text-primary border border-primary/20">
+                Verbatim
+              </span>
+            </Link>
+            <Link
               href="/#playground"
               className="text-sm font-medium text-muted-foreground hover:text-foreground transition-colors"
             >
@@ -186,6 +199,13 @@ export function Navbar() {
             >
               Courses
             </Link>
+            <Link
+              href="/revision"
+              onClick={() => setMobileMenuOpen(false)}
+              className="block px-3 py-2 rounded-lg text-sm font-medium hover:bg-muted text-primary font-semibold"
+            >
+              Revision Hub (All Concepts)
+            </Link>
             <SignedIn>
               <Link
                 href="/dashboard"
@@ -197,6 +217,7 @@ export function Navbar() {
             </SignedIn>
           </div>
         )}
+
       </header>
 
       {/* Global Search Dialog */}
