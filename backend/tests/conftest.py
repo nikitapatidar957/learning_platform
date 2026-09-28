@@ -1,6 +1,12 @@
+import sys
+import os
 import pytest
 from fastapi.testclient import TestClient
 import mongomock
+
+# Ensure backend root is on sys.path
+sys.path.insert(0, os.path.abspath(os.path.join(os.path.dirname(__file__), "..")))
+
 from app.main import app
 from app.database.mongodb import db_manager
 from scripts.seed import seed_database

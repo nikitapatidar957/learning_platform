@@ -75,5 +75,8 @@ def health_check():
     return {
         "status": "healthy",
         "database": db_status,
+        "database_type": db_manager.connection_type,
+        "database_host": db_manager.host_display,
+        "database_name": settings.MONGODB_DB_NAME,
         "environment": settings.ENVIRONMENT,
     }

@@ -1,7 +1,41 @@
-# check brew services start mongodb-community
-# nikita@Nikitas-MacBook-Air learning_platform % cd /Users/nikita/Documents/notes_app/learning_platform/frontend
-# npm run dev
-# (learning-platform-env) (.venv) nikita@Nikitas-MacBook-Air backend % uvicorn app.main:app --reload --host 0.0.0.0 --port 8000
-# python3.12 -m venv .venv
-# /opt/miniconda3/bin/conda --version
-# source .venv/bin/activate
+# =============================================================================
+# Developer Commands & Cheatsheet:
+# =============================================================================
+# 1. Activate Environment:
+#    conda activate learning-platform-env
+#    -- OR --
+#    source .venv/bin/activate
+#
+# 2. Run Backend (from repo root or backend/):
+#    uvicorn app.main:app --reload --host 0.0.0.0 --port 8000
+#
+# 3. Run Frontend (from frontend/):
+#    cd frontend && npm run dev
+#
+# 4. Seed MongoDB Atlas:
+#    python backend/scripts/seed.py
+# =============================================================================
+
+# Core Framework & Server
+fastapi>=0.111.0
+uvicorn[standard]>=0.30.0
+
+# Settings & Data Validation
+pydantic>=2.7.0
+pydantic-settings>=2.3.0
+python-dotenv>=1.0.1
+
+# MongoDB Atlas & Database Drivers
+pymongo>=4.8.0
+dnspython>=2.6.1
+certifi>=2024.2.2
+
+# Authentication & Security
+PyJWT[crypto]>=2.8.0
+cryptography>=42.0.0
+httpx>=0.27.0
+
+# Testing & Mocking
+mongomock>=4.1.2
+pytest>=8.2.0
+pytest-asyncio>=0.23.0
