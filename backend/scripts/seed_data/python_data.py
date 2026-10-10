@@ -11,10 +11,26 @@ Incorporating concepts from:
 PYTHON_TOPICS = [
     {
         "subjectSlug": "python",
+        "title": "Python Basics & Core Fundamentals",
+        "slug": "python-basics-programming",
+        "description": "Syntax, keywords, identifiers, statement indentation, variables, constants, literals, data types, type conversion, I/O, and operators.",
+        "order": 1,
+        "isPublished": True,
+    },
+    {
+        "subjectSlug": "python",
         "title": "Python Architecture & Memory Internals",
         "slug": "python-execution-memory",
         "description": "Deep dive into CPython execution, bytecode, JIT, reference counting, cyclic garbage collection, and shallow vs deep copy.",
-        "order": 1,
+        "order": 2,
+        "isPublished": True,
+    },
+    {
+        "subjectSlug": "python",
+        "title": "Flow Control, Loops & Conditionals",
+        "slug": "python-flow-control",
+        "description": "Conditional branching (if, elif, else, nested if), loops (for, while, range), and loop control statements (break, continue, pass).",
+        "order": 3,
         "isPublished": True,
     },
     {
@@ -22,7 +38,7 @@ PYTHON_TOPICS = [
         "title": "Functions, Scopes & Advanced Patterns",
         "slug": "functions-scopes-advanced",
         "description": "LEGB scope resolution, *args/**kwargs, mutable default arguments traps, decorators, and memory-saving generators.",
-        "order": 2,
+        "order": 4,
         "isPublished": True,
     },
     {
@@ -30,15 +46,23 @@ PYTHON_TOPICS = [
         "title": "Object-Oriented Programming (OOP) in Python",
         "slug": "python-oop-mastery",
         "description": "The 4 pillars of OOP, Method Resolution Order (MRO), class vs static methods, dunder/magic methods, and context managers.",
-        "order": 3,
+        "order": 5,
         "isPublished": True,
     },
     {
         "subjectSlug": "python",
-        "title": "Concurrency & The Global Interpreter Lock (GIL)",
-        "slug": "python-concurrency-gil",
-        "description": "Understanding the GIL, CPU-bound vs I/O-bound bottlenecks, threading vs multiprocessing vs asyncio.",
-        "order": 4,
+        "title": "File I/O, Exceptions & Regular Expressions",
+        "slug": "python-files-regex",
+        "description": "Reading and writing files, os directory management, robust exception handling (try-except-else-finally), and regex patterns.",
+        "order": 6,
+        "isPublished": True,
+    },
+    {
+        "subjectSlug": "python",
+        "title": "NumPy & High-Performance Array Computing",
+        "slug": "python-numpy-numerical",
+        "description": "Multidimensional ndarrays, vectorization, indexing, slicing, broadcasting, reshaping, and statistical operations in NumPy.",
+        "order": 7,
         "isPublished": True,
     },
     {
@@ -46,7 +70,31 @@ PYTHON_TOPICS = [
         "title": "Pandas & Tabular Data Manipulation",
         "slug": "pandas-data-manipulation",
         "description": "Series vs DataFrame, loc vs iloc indexing, handling missing values, filtering, groupby aggregations, merges, and pivot tables.",
-        "order": 5,
+        "order": 8,
+        "isPublished": True,
+    },
+    {
+        "subjectSlug": "python",
+        "title": "Data Visualization with Matplotlib & Seaborn",
+        "slug": "python-data-visualization",
+        "description": "Creating publication-quality charts: line plots, scatter plots, bar charts, histograms, heatmaps, box plots, and pair plots.",
+        "order": 9,
+        "isPublished": True,
+    },
+    {
+        "subjectSlug": "python",
+        "title": "DateTime, Timestamps & Time Profiling",
+        "slug": "python-datetime-time",
+        "description": "Working with dates, times, timedeltas, formatting with strftime(), parsing with strptime(), timestamps, and time.sleep().",
+        "order": 10,
+        "isPublished": True,
+    },
+    {
+        "subjectSlug": "python",
+        "title": "Concurrency & The Global Interpreter Lock (GIL)",
+        "slug": "python-concurrency-gil",
+        "description": "Understanding the GIL, CPU-bound vs I/O-bound bottlenecks, threading vs multiprocessing vs asyncio.",
+        "order": 11,
         "isPublished": True,
     },
     {
@@ -54,10 +102,11 @@ PYTHON_TOPICS = [
         "title": "Git & Collaborative Version Control",
         "slug": "git-version-control",
         "description": "Distributed VCS, the 4 Git areas, DAG commit graphs, blobs/trees, branching, fast-forward vs 3-way merges, and rebasing.",
-        "order": 6,
+        "order": 12,
         "isPublished": True,
     },
 ]
+
 
 PYTHON_LESSONS = [
     # -------------------------------------------------------------------------
@@ -918,6 +967,193 @@ PYTHON_LESSONS = [
             ]
         }
     },
+    {
+        "topicSlug": "pandas-data-manipulation",
+        "subjectSlug": "python",
+        "title": "Day 15: Working with CSV Files in Pandas (16 Parameters)",
+        "slug": "day15-pandas-working-with-csv-files",
+        "description": "Master all 16 parameters of pd.read_csv(): sep, usecols, dtypes, parse_dates, chunksize, converters, and memory optimization.",
+        "estimatedTime": "35 mins",
+        "difficulty": "Beginner to Intermediate",
+        "order": 4,
+        "isPublished": True,
+        "interactiveType": None,
+        "content": {
+            "sections": [
+                {
+                    "type": "explanation",
+                    "title": "Mastering the 16 Parameters of pd.read_csv",
+                    "content": (
+                        "Pandas provides extensive controls for reading CSV and tabular data files:\n\n"
+                        "1. `sep`: Set delimiter (e.g. `sep='\\t'` for TSV files).\n"
+                        "2. `index_col`: Set primary key as index (`index_col='enrollee_id'`).\n"
+                        "3. `header`: Choose header row index (`header=1`).\n"
+                        "4. `usecols`: Select specific columns to drastically save memory (`usecols=['id', 'gender', 'target']`).\n"
+                        "5. `squeeze`: Convert single column into a Series.\n"
+                        "6. `nrows` & `skiprows`: Inspect samples or skip metadata headers.\n"
+                        "7. `encoding`: Specify text encoding (`encoding='latin-1'`).\n"
+                        "8. `on_bad_lines`: Skip corrupted lines (`on_bad_lines='skip'`).\n"
+                        "9. `dtype`: Explicitly downcast column types (`dtype={'target': int}`).\n"
+                        "10. `parse_dates`: Convert date strings into `datetime64[ns]`.\n"
+                        "11. `converters`: Apply transformation functions on-the-fly (`converters={'team1': rename_func}`).\n"
+                        "12. `na_values`: Define custom missing value tokens (`na_values=['Male', '?', 'N/A']`).\n"
+                        "13. `chunksize`: Stream multi-GB files in manageable iterations (`chunksize=5000`)."
+                    )
+                },
+                {
+                    "type": "code",
+                    "title": "Memory-Efficient Chunk Reading and Custom Converters",
+                    "language": "python",
+                    "code": (
+                        "import pandas as pd\n\n"
+                        "# 1. Read dates and custom converters\n"
+                        "def standardize_team(name):\n"
+                        "    return 'RCB' if name == 'Royal Challengers Bangalore' else name\n\n"
+                        "df = pd.read_csv('IPL Matches 2008-2020.csv', parse_dates=['date'], converters={'team1': standardize_team})\n\n"
+                        "# 2. Stream huge dataset in memory-friendly chunks\n"
+                        "chunk_iterator = pd.read_csv('aug_train.csv', chunksize=5000, usecols=['enrollee_id', 'city', 'target'])\n"
+                        "for chunk in chunk_iterator:\n"
+                        "    print('Processing chunk with shape:', chunk.shape)"
+                    )
+                }
+            ]
+        }
+    },
+    {
+        "topicSlug": "pandas-data-manipulation",
+        "subjectSlug": "python",
+        "title": "Day 16: Working with JSON & SQL in Pandas",
+        "slug": "day16-pandas-working-with-json-and-sql",
+        "description": "Read local and API JSON payloads with pd.read_json(), connect to relational databases, and query tables with pd.read_sql_query().",
+        "estimatedTime": "30 mins",
+        "difficulty": "Intermediate",
+        "order": 5,
+        "isPublished": True,
+        "interactiveType": None,
+        "content": {
+            "sections": [
+                {
+                    "type": "explanation",
+                    "title": "JSON and SQL Ingestion Pipelines",
+                    "content": (
+                        "Pandas natively bridges semi-structured JSON and relational SQL databases:\n\n"
+                        "• **JSON Ingestion**: Use `pd.read_json()` on local files or directly against web endpoints.\n"
+                        "• **SQL Database Queries**: Connect to MySQL/Postgres/SQLite and execute SQL queries directly into DataFrames with `pd.read_sql_query()`.\n"
+                        "• **Writing Back to SQL**: Persist cleaned DataFrames back to database tables using `df.to_sql('table_name', conn, if_exists='replace')`."
+                    )
+                },
+                {
+                    "type": "code",
+                    "title": "Querying SQL and Fetching API JSON",
+                    "language": "python",
+                    "code": (
+                        "import pandas as pd\n"
+                        "import mysql.connector\n\n"
+                        "# 1. Read JSON from public API endpoint\n"
+                        "rates_df = pd.read_json('https://api.exchangerate-api.com/v4/latest/INR')\n"
+                        "print(rates_df.head())\n\n"
+                        "# 2. Connect to MySQL and query records\n"
+                        "conn = mysql.connector.connect(host='localhost', user='root', password='', database='world')\n"
+                        "sql_df = pd.read_sql_query('SELECT CountryCode, Language, Percentage FROM countrylanguage WHERE Percentage > 50', conn)\n"
+                        "print(sql_df.head())"
+                    )
+                }
+            ]
+        }
+    },
+    {
+        "topicSlug": "pandas-data-manipulation",
+        "subjectSlug": "python",
+        "title": "Day 17: Ingesting REST APIs into Pandas DataFrames",
+        "slug": "day17-pandas-api-to-dataframe",
+        "description": "Fetch remote REST API payloads, unpack JSON responses into DataFrames, implement pagination loops, and export to CSV.",
+        "estimatedTime": "35 mins",
+        "difficulty": "Intermediate",
+        "order": 6,
+        "isPublished": True,
+        "interactiveType": None,
+        "content": {
+            "sections": [
+                {
+                    "type": "explanation",
+                    "title": "API Ingestion & Multi-Page Pagination",
+                    "content": (
+                        "When data is hosted behind REST APIs, ingestion requires 3 steps:\n\n"
+                        "1. **Request**: Call the endpoint using Python's `requests.get()` with API keys and headers.\n"
+                        "2. **Parse**: Extract JSON records (`response.json()['results']`) and convert to `pd.DataFrame`.\n"
+                        "3. **Pagination**: Iterate through pages, append records to a list, and combine using `pd.concat()`."
+                    )
+                },
+                {
+                    "type": "code",
+                    "title": "Multi-Page REST API Ingestion Script",
+                    "language": "python",
+                    "code": (
+                        "import requests\n"
+                        "import pandas as pd\n\n"
+                        "all_movies = []\n"
+                        "for page in range(1, 10):\n"
+                        "    url = f'https://api.themoviedb.org/3/movie/top_rated?api_key=SAMPLE_KEY&language=en-US&page={page}'\n"
+                        "    res = requests.get(url)\n"
+                        "    if res.status_code == 200:\n"
+                        "        data = res.json().get('results', [])\n"
+                        "        all_movies.extend(data)\n\n"
+                        "df = pd.DataFrame(all_movies)[['id', 'title', 'release_date', 'vote_average', 'vote_count']]\n"
+                        "df.to_csv('movies_dataset.csv', index=False)\n"
+                        "print('Total movies harvested:', df.shape)"
+                    )
+                }
+            ]
+        }
+    },
+    {
+        "topicSlug": "pandas-data-manipulation",
+        "subjectSlug": "python",
+        "title": "Day 18: Web Scraping to Pandas DataFrames with BeautifulSoup",
+        "slug": "day18-pandas-dataframe-using-web-scraping",
+        "description": "Overcome HTTP 403 Forbidden with User-Agents, parse HTML with BeautifulSoup, extract card containers, and build DataFrames.",
+        "estimatedTime": "40 mins",
+        "difficulty": "Intermediate to Advanced",
+        "order": 7,
+        "isPublished": True,
+        "interactiveType": None,
+        "content": {
+            "sections": [
+                {
+                    "type": "explanation",
+                    "title": "HTML Web Scraping & Container Pattern",
+                    "content": (
+                        "Web scraping transforms raw unstructured website markup into structured pandas tables:\n\n"
+                        "• **User-Agent Spoofing**: Pass browser headers to bypass HTTP 403 Forbidden bot blocks.\n"
+                        "• **Container Pattern**: Always loop through parent container divs (`soup.find_all('div', class_='card')`) rather than parallel lists, ensuring missing fields do not desynchronize rows.\n"
+                        "• **Error Handling**: Use `try...except` to assign `np.nan` for missing metadata tags."
+                    )
+                },
+                {
+                    "type": "code",
+                    "title": "Multi-Page Web Scraping to DataFrame",
+                    "language": "python",
+                    "code": (
+                        "import requests\n"
+                        "from bs4 import BeautifulSoup\n"
+                        "import pandas as pd\n"
+                        "import numpy as np\n\n"
+                        "headers = {'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) Chrome/115.0.0.0'}\n"
+                        "records = []\n\n"
+                        "webpage = requests.get('https://www.ambitionbox.com/list-of-companies?page=1', headers=headers).text\n"
+                        "soup = BeautifulSoup(webpage, 'lxml')\n"
+                        "cards = soup.find_all('div', class_='company-content-wrapper')\n\n"
+                        "for card in cards:\n"
+                        "    name = card.find('h2').text.strip() if card.find('h2') else np.nan\n"
+                        "    rating = card.find('p', class_='rating').text.strip() if card.find('p', class_='rating') else np.nan\n"
+                        "    records.append({'company': name, 'rating': rating})\n\n"
+                        "df = pd.DataFrame(records)\n"
+                        "print(df.head())"
+                    )
+                }
+            ]
+        }
+    },
 
     # -------------------------------------------------------------------------
     # Topic 6: Git & Collaborative Version Control
@@ -1035,5 +1271,472 @@ PYTHON_LESSONS = [
                 }
             ]
         }
-    }
+    },
+
+    # -------------------------------------------------------------------------
+    # Topic: Python Basics & Core Fundamentals
+    # -------------------------------------------------------------------------
+    {
+        "topicSlug": "python-basics-programming",
+        "subjectSlug": "python",
+        "title": "Python Syntax, Variables, Literals & Operators",
+        "slug": "python-syntax-variables-operators",
+        "description": "Core Python syntax, dynamic typing, keywords, naming identifiers, statement indentation, numeric/string literals, and arithmetic, logical & bitwise operators.",
+        "estimatedTime": "30 mins",
+        "difficulty": "Beginner",
+        "order": 1,
+        "isPublished": True,
+        "interactiveType": None,
+        "content": {
+            "sections": [
+                {
+                    "type": "explanation",
+                    "title": "Python Syntax, Indentation & Identifiers",
+                    "content": (
+                        "• Python is dynamically and strongly typed: variables are references bound to objects in memory; types are checked at runtime.\n"
+                        "• Indentation defines block scope (typically 4 spaces) rather than curly braces `{}`.\n"
+                        "• Identifiers: Can contain letters, digits, and underscores, but cannot start with a digit. Case-sensitive (`total` vs `Total`).\n"
+                        "• Keywords: Reserved words (e.g., `def`, `class`, `if`, `is`, `in`, `lambda`, `yield`, `pass`, `del`) that cannot be used as identifiers."
+                    )
+                },
+                {
+                    "type": "code",
+                    "title": "Variables, Multiple Assignment & Arithmetic Operators",
+                    "language": "python",
+                    "code": (
+                        "# Multiple variable assignment\n"
+                        "a, b, c = 10, 20.5, 'Python'\n\n"
+                        "# Arithmetic operators\n"
+                        "print('Floor Division:', 17 // 3)  # 5\n"
+                        "print('Modulo:', 17 % 3)          # 2\n"
+                        "print('Exponentiation:', 2 ** 5)   # 32\n\n"
+                        "# Identity vs Equality\n"
+                        "x = [1, 2, 3]\n"
+                        "y = [1, 2, 3]\n"
+                        "print('Equality (==):', x == y)    # True (same values)\n"
+                        "print('Identity (is):', x is y)    # False (different memory addresses!)"
+                    )
+                }
+            ]
+        }
+    },
+    {
+        "topicSlug": "python-basics-programming",
+        "subjectSlug": "python",
+        "title": "Type Conversion, Input/Output & Namespaces",
+        "slug": "python-type-conversion-io",
+        "description": "Implicit vs explicit type conversion, formatted string interpolation (f-strings), console I/O, and namespace symbol tables.",
+        "estimatedTime": "25 mins",
+        "difficulty": "Beginner",
+        "order": 2,
+        "isPublished": True,
+        "interactiveType": None,
+        "content": {
+            "sections": [
+                {
+                    "type": "explanation",
+                    "title": "Type Conversion: Implicit vs Explicit Casting",
+                    "content": (
+                        "• Implicit Type Conversion: Python automatically promotes smaller types to avoid data loss (e.g., adding `int` + `float` results in `float`).\n\n"
+                        "• Explicit Type Conversion (Type Casting): Developer explicitly converts values using built-in constructors (`int()`, `float()`, `str()`, `list()`, `tuple()`, `set()`)."
+                    )
+                },
+                {
+                    "type": "code",
+                    "title": "Type Casting and Formatted f-Strings",
+                    "language": "python",
+                    "code": (
+                        "# Explicit casting\n"
+                        "num_str = '42'\n"
+                        "num_int = int(num_str)\n\n"
+                        "# Modern f-string formatting with specifiers\n"
+                        "pi = 3.14159265\n"
+                        "print(f'Value of Pi: {pi:.2f}')       # 3.14\n"
+                        "print(f'Hexadecimal: {255:#x}')        # 0xff\n"
+                        "print(f'Binary: {42:#b}')             # 0b101010"
+                    )
+                }
+            ]
+        }
+    },
+
+    # -------------------------------------------------------------------------
+    # Topic: Flow Control, Loops & Conditionals
+    # -------------------------------------------------------------------------
+    {
+        "topicSlug": "python-flow-control",
+        "subjectSlug": "python",
+        "title": "Conditionals: if, elif, else & Nested Logic",
+        "slug": "python-conditional-statements",
+        "description": "Master boolean expressions, truthy/falsy evaluation, chained if-elif-else branches, and nested decision trees.",
+        "estimatedTime": "25 mins",
+        "difficulty": "Beginner",
+        "order": 1,
+        "isPublished": True,
+        "interactiveType": None,
+        "content": {
+            "sections": [
+                {
+                    "type": "explanation",
+                    "title": "Truthy vs Falsy in Python",
+                    "content": (
+                        "In Python, all objects evaluate to a boolean context:\n"
+                        "• Falsy values: `False`, `None`, `0`, `0.0`, `''` (empty string), `[]` (empty list), `()` (empty tuple), `{}` (empty dict), `set()`.\n"
+                        "• Truthy values: Any non-zero number, non-empty collection, or custom object whose `__bool__()` or `__len__()` returns non-zero."
+                    )
+                },
+                {
+                    "type": "code",
+                    "title": "Clean Conditional Branching and Ternary Operator",
+                    "language": "python",
+                    "code": (
+                        "score = 88\n\n"
+                        "if score >= 90:\n"
+                        "    grade = 'A'\n"
+                        "elif score >= 80:\n"
+                        "    grade = 'B'\n"
+                        "elif score >= 70:\n"
+                        "    grade = 'C'\n"
+                        "else:\n"
+                        "    grade = 'F'\n\n"
+                        "# Python Ternary Expression (One-line conditional)\n"
+                        "status = 'Passed' if score >= 70 else 'Failed'\n"
+                        "print(f'Grade: {grade}, Status: {status}')"
+                    )
+                }
+            ]
+        }
+    },
+    {
+        "topicSlug": "python-flow-control",
+        "subjectSlug": "python",
+        "title": "Loops: for, while, range, break, continue & pass",
+        "slug": "python-loops-control-flow",
+        "description": "Definite iteration with for loops, indefinite iteration with while loops, range() generation, early exit, skipping, and loop-else clauses.",
+        "estimatedTime": "30 mins",
+        "difficulty": "Beginner to Intermediate",
+        "order": 2,
+        "isPublished": True,
+        "interactiveType": None,
+        "content": {
+            "sections": [
+                {
+                    "type": "explanation",
+                    "title": "Loop Control Statements & The loop-else Clause",
+                    "content": (
+                        "• `break`: Immediately terminates the innermost loop.\n"
+                        "• `continue`: Skips the remainder of the current iteration and jumps to the next loop cycle.\n"
+                        "• `pass`: Null statement used as a syntactic placeholder.\n"
+                        "• Loop `else` clause: Executes ONLY if the loop completed normally without encountering a `break` statement!"
+                    )
+                },
+                {
+                    "type": "code",
+                    "title": "Prime Number Search using for-else and break",
+                    "language": "python",
+                    "code": (
+                        "def is_prime(n):\n"
+                        "    if n < 2:\n"
+                        "        return False\n"
+                        "    for i in range(2, int(n ** 0.5) + 1):\n"
+                        "        if n % i == 0:\n"
+                        "            break  # Found divisor, not prime!\n"
+                        "    else:\n"
+                        "        return True  # Executed only if no break occurred!\n"
+                        "    return False\n\n"
+                        "print('Is 29 prime?', is_prime(29))  # True\n"
+                        "print('Is 35 prime?', is_prime(35))  # False"
+                    )
+                }
+            ]
+        }
+    },
+
+    # -------------------------------------------------------------------------
+    # Topic: File I/O, Exceptions & Regular Expressions
+    # -------------------------------------------------------------------------
+    {
+        "topicSlug": "python-files-regex",
+        "subjectSlug": "python",
+        "title": "File I/O: Reading, Writing & Context Managers",
+        "slug": "python-file-io-operations",
+        "description": "Open modes (r, w, a, x, b, +), buffered I/O, cursor seeking (tell, seek), encoding parameters, and the with statement.",
+        "estimatedTime": "30 mins",
+        "difficulty": "Intermediate",
+        "order": 1,
+        "isPublished": True,
+        "interactiveType": None,
+        "content": {
+            "sections": [
+                {
+                    "type": "explanation",
+                    "title": "File Modes & Resource Safety",
+                    "content": (
+                        "• `'r'`: Read (default, throws FileNotFoundError if absent).\n"
+                        "• `'w'`: Write (truncates/overwrites existing file).\n"
+                        "• `'a'`: Append (writes to end of file without truncating).\n"
+                        "• `'b'`: Binary mode (for images, audio, compiled binaries).\n\n"
+                        "Always use `with open(...) as f:` to guarantee proper OS file descriptor closure even in the event of unhandled exceptions."
+                    )
+                },
+                {
+                    "type": "code",
+                    "title": "Safe File Writing, Reading & Line Iteration",
+                    "language": "python",
+                    "code": (
+                        "# Writing text to file\n"
+                        "with open('sample.txt', 'w', encoding='utf-8') as f:\n"
+                        "    f.write('Python Data Engineering\\n')\n"
+                        "    f.writelines(['Line 1\\n', 'Line 2\\n', 'Line 3\\n'])\n\n"
+                        "# Memory-efficient line-by-line streaming\n"
+                        "with open('sample.txt', 'r', encoding='utf-8') as f:\n"
+                        "    for line_num, line in enumerate(f, start=1):\n"
+                        "        print(f'{line_num}: {line.strip()}')"
+                    )
+                }
+            ]
+        }
+    },
+    {
+        "topicSlug": "python-files-regex",
+        "subjectSlug": "python",
+        "title": "Exception Handling & Regular Expressions",
+        "slug": "python-exceptions-and-regex",
+        "description": "Structured exception handling (try-except-else-finally), raising custom exceptions, and pattern matching with the re module.",
+        "estimatedTime": "35 mins",
+        "difficulty": "Intermediate",
+        "order": 2,
+        "isPublished": True,
+        "interactiveType": None,
+        "content": {
+            "sections": [
+                {
+                    "type": "explanation",
+                    "title": "The Full try-except-else-finally Lifecycle",
+                    "content": (
+                        "• `try`: Block containing code that might raise an exception.\n"
+                        "• `except SpecificError as e`: Handles specific exception type.\n"
+                        "• `else`: Runs ONLY if NO exception was raised in the `try` block.\n"
+                        "• `finally`: Runs ALWAYS, regardless of exceptions (ideal for resource cleanup)."
+                    )
+                },
+                {
+                    "type": "code",
+                    "title": "Exception Handling and Regular Expression Pattern Matching",
+                    "language": "python",
+                    "code": (
+                        "import re\n\n"
+                        "# Robust exception handling\n"
+                        "try:\n"
+                        "    val = int('42')\n"
+                        "except ValueError as err:\n"
+                        "    print('Conversion error:', err)\n"
+                        "else:\n"
+                        "    print('Conversion success:', val)\n"
+                        "finally:\n"
+                        "    print('Execution complete.')\n\n"
+                        "# Regular Expressions with re module\n"
+                        "text = 'Contact support@nexuslearn.io or info@learni.com for questions.'\n"
+                        "email_pattern = r'[a-zA-Z0-9_.+-]+@[a-zA-Z0-9-]+\.[a-zA-Z0-9-.]+'\n"
+                        "emails = re.findall(email_pattern, text)\n"
+                        "print('Extracted emails:', emails)  # ['support@nexuslearn.io', 'info@learni.com']"
+                    )
+                }
+            ]
+        }
+    },
+
+    # -------------------------------------------------------------------------
+    # Topic: NumPy & High-Performance Array Computing
+    # -------------------------------------------------------------------------
+    {
+        "topicSlug": "python-numpy-numerical",
+        "subjectSlug": "python",
+        "title": "NumPy ndarrays, Indexing, Slicing & Broadcasting",
+        "slug": "numpy-arrays-vectorization",
+        "description": "Contiguous C-memory layouts in ndarray, multidimensional slicing, vectorization benefits over loops, and broadcasting rules.",
+        "estimatedTime": "35 mins",
+        "difficulty": "Intermediate",
+        "order": 1,
+        "isPublished": True,
+        "interactiveType": None,
+        "content": {
+            "sections": [
+                {
+                    "type": "explanation",
+                    "title": "Why NumPy is 50x-100x Faster than Python Lists",
+                    "content": (
+                        "• Python Lists: Store arrays of pointers to Python objects scattered across heap memory. Iterating causes CPU cache misses and pointer indirection overhead.\n\n"
+                        "• NumPy ndarrays: Store homogeneous data types (e.g., `int64`, `float32`) contiguously in raw C-memory blocks with SIMD (Single Instruction Multiple Data) vectorization."
+                    )
+                },
+                {
+                    "type": "code",
+                    "title": "Creating ndarrays, Slicing & Broadcasting",
+                    "language": "python",
+                    "code": (
+                        "import numpy as np\n\n"
+                        "# Array creation\n"
+                        "arr = np.arange(1, 10).reshape((3, 3))\n"
+                        "print('2D Array:\\n', arr)\n\n"
+                        "# Slicing rows and columns: arr[row_slice, col_slice]\n"
+                        "print('Top-right 2x2 submatrix:\\n', arr[:2, 1:])\n\n"
+                        "# Broadcasting: 3x3 matrix + 1D array of 3 elements\n"
+                        "bias = np.array([10, 20, 30])\n"
+                        "print('Broadcasting addition:\\n', arr + bias)"
+                    )
+                }
+            ]
+        }
+    },
+    {
+        "topicSlug": "python-numpy-numerical",
+        "subjectSlug": "python",
+        "title": "NumPy Reshaping, Stacking & Statistical Operations",
+        "slug": "numpy-array-manipulation-stats",
+        "description": "Reshaping arrays, vertical and horizontal stacking, axis-based aggregations (mean, std, sum, argmax), and boolean masking.",
+        "estimatedTime": "30 mins",
+        "difficulty": "Intermediate",
+        "order": 2,
+        "isPublished": True,
+        "interactiveType": None,
+        "content": {
+            "sections": [
+                {
+                    "type": "explanation",
+                    "title": "Array Manipulation & Axis Semantics",
+                    "content": (
+                        "• `axis=0`: Operates along the rows (downwards, across columns).\n"
+                        "• `axis=1`: Operates along the columns (horizontally, across rows).\n"
+                        "• `reshape(-1, n)`: Automatically calculates the unknown dimension."
+                    )
+                },
+                {
+                    "type": "code",
+                    "title": "Axis-based Statistics and Boolean Masking",
+                    "language": "python",
+                    "code": (
+                        "import numpy as np\n\n"
+                        "data = np.array([\n"
+                        "    [10, 25, 30],\n"
+                        "    [40, 55, 60],\n"
+                        "    [70, 85, 90]\n"
+                        "])\n\n"
+                        "print('Column Means (axis=0):', data.mean(axis=0))\n"
+                        "print('Row Sums (axis=1):', data.sum(axis=1))\n"
+                        "print('Max index per row:', data.argmax(axis=1))\n\n"
+                        "# Boolean Indexing (Filtering without loops)\n"
+                        "greater_than_50 = data[data > 50]\n"
+                        "print('Elements > 50:', greater_than_50)"
+                    )
+                }
+            ]
+        }
+    },
+
+    # -------------------------------------------------------------------------
+    # Topic: Data Visualization with Matplotlib & Seaborn
+    # -------------------------------------------------------------------------
+    {
+        "topicSlug": "python-data-visualization",
+        "subjectSlug": "python",
+        "title": "Data Visualization: Matplotlib Charts & Seaborn Distributions",
+        "slug": "matplotlib-seaborn-visualizations",
+        "description": "Construct publication-ready figures: line charts, scatter plots, histograms, heatmaps, box plots, and multi-panel subplots.",
+        "estimatedTime": "35 mins",
+        "difficulty": "Intermediate",
+        "order": 1,
+        "isPublished": True,
+        "interactiveType": None,
+        "content": {
+            "sections": [
+                {
+                    "type": "explanation",
+                    "title": "Matplotlib Object-Oriented API vs Seaborn",
+                    "content": (
+                        "• Matplotlib (Object-Oriented): Explicitly instantiate `fig, ax = plt.subplots()`. Provides granular control over axes, ticks, spines, labels, and figure dimensions.\n\n"
+                        "• Seaborn: High-level statistical visualization library built on top of Matplotlib that integrates seamlessly with Pandas DataFrames and color palettes."
+                    )
+                },
+                {
+                    "type": "code",
+                    "title": "Plotting Subplots and Correlation Heatmaps",
+                    "language": "python",
+                    "code": (
+                        "import matplotlib.pyplot as plt\n"
+                        "import seaborn as sns\n"
+                        "import pandas as pd\n"
+                        "import numpy as np\n\n"
+                        "# Matplotlib subplots\n"
+                        "fig, (ax1, ax2) = plt.subplots(1, 2, figsize=(10, 4))\n"
+                        "x = np.linspace(0, 10, 100)\n"
+                        "ax1.plot(x, np.sin(x), color='indigo', label='sin(x)')\n"
+                        "ax1.set_title('Sine Wave')\n"
+                        "ax1.legend()\n\n"
+                        "# Seaborn correlation heatmap\n"
+                        "df = pd.DataFrame(np.random.rand(5, 5), columns=list('ABCDE'))\n"
+                        "sns.heatmap(df.corr(), annot=True, cmap='coolwarm', ax=ax2)\n"
+                        "ax2.set_title('Feature Correlation Matrix')\n"
+                        "plt.tight_layout()"
+                    )
+                }
+            ]
+        }
+    },
+
+    # -------------------------------------------------------------------------
+    # Topic: DateTime, Timestamps & Time Profiling
+    # -------------------------------------------------------------------------
+    {
+        "topicSlug": "python-datetime-time",
+        "subjectSlug": "python",
+        "title": "datetime & time Modules: strftime, strptime & Profiling",
+        "slug": "datetime-time-module-mastery",
+        "description": "Manipulate dates, times, timedeltas, format timestamps with strftime, parse ISO strings with strptime, and benchmark with time.perf_counter().",
+        "estimatedTime": "25 mins",
+        "difficulty": "Beginner to Intermediate",
+        "order": 1,
+        "isPublished": True,
+        "interactiveType": None,
+        "content": {
+            "sections": [
+                {
+                    "type": "explanation",
+                    "title": "strftime vs strptime: The Essential Mnemonic",
+                    "content": (
+                        "• `strftime()` (String Format Time): datetime object → formatted string (`f` = format for display).\n"
+                        "• `strptime()` (String Parse Time): string input → datetime object (`p` = parse into object).\n\n"
+                        "Common Directives:\n"
+                        "• `%Y`: 4-digit year (e.g., 2026)\n"
+                        "• `%m`: 2-digit month (01-12)\n"
+                        "• `%d`: 2-digit day of the month (01-31)\n"
+                        "• `%H`: Hour in 24-hour format (00-23)\n"
+                        "• `%M`: Minute (00-59)\n"
+                        "• `%S`: Second (00-59)"
+                    )
+                },
+                {
+                    "type": "code",
+                    "title": "Parsing, Formatting and Measuring Code Execution",
+                    "language": "python",
+                    "code": (
+                        "from datetime import datetime, timedelta\n"
+                        "import time\n\n"
+                        "# Parsing string to datetime\n"
+                        "date_str = '2026-09-28 14:30:00'\n"
+                        "dt = datetime.strptime(date_str, '%Y-%m-%d %H:%M:%S')\n\n"
+                        "# Date arithmetic with timedelta\n"
+                        "future_dt = dt + timedelta(days=7, hours=3)\n"
+                        "print('Future Date:', future_dt.strftime('%A, %B %d, %Y'))\n\n"
+                        "# High-precision performance benchmarking\n"
+                        "start = time.perf_counter()\n"
+                        "total = sum(i ** 2 for i in range(100_000))\n"
+                        "duration = time.perf_counter() - start\n"
+                        "print(f'Execution duration: {duration:.4f} seconds')"
+                    )
+                }
+            ]
+        }
+    },
 ]
+

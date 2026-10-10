@@ -14,6 +14,9 @@ import {
   Terminal,
   GitBranch,
   Cloud,
+  BarChart2,
+  FileText,
+  Rocket,
   ArrowRight,
   BookOpen,
   Clock,
@@ -55,9 +58,19 @@ export function SubjectCard({ subject, progressPercentage = 0 }: SubjectCardProp
       case 'aws':
       case 'cloud':
         return <Cloud className="h-6 w-6 text-sky-500" />;
+      case 'barchart2':
+      case 'statistics':
+        return <BarChart2 className="h-6 w-6 text-teal-500" />;
+      case 'filetext':
+      case 'nlp':
+        return <FileText className="h-6 w-6 text-emerald-400" />;
+      case 'rocket':
+      case 'deployment':
+        return <Rocket className="h-6 w-6 text-rose-500" />;
       default:
         return <BookOpen className="h-6 w-6 text-primary" />;
     }
+
   };
 
   return (

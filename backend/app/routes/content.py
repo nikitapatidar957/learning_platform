@@ -3,6 +3,15 @@ import re
 from pathlib import Path
 from typing import List, Optional, Dict, Any
 from fastapi import APIRouter, HTTPException, Query
+from pydantic import BaseModel, Field
+
+class ContentSaveRequest(BaseModel):
+    content: str
+
+class ContentCreateRequest(BaseModel):
+    fileSlug: str
+    content: str
+    title: Optional[str] = None
 
 router = APIRouter(prefix="/api/content", tags=["Content"])
 
@@ -20,10 +29,14 @@ SUBJECT_TITLES: Dict[str, str] = {
     "generative-ai": "Generative AI & RAG",
     "agentic-ai": "Agentic AI",
     "deep-learning": "Deep Learning",
+    "statistics": "Statistics & Probability",
+    "nlp": "Natural Language Processing",
+    "deployment": "Model Deployment & MLOps",
 }
 
 SUBJECT_ORDER: List[str] = [
     "python",
+    "statistics",
     "git",
     "aws",
     "dsa",
@@ -34,13 +47,21 @@ SUBJECT_ORDER: List[str] = [
     "generative-ai",
     "agentic-ai",
     "deep-learning",
+    "nlp",
+    "deployment",
 ]
+
 
 
 def _format_title_from_slug(slug: str) -> str:
     words = slug.replace("-", " ").replace("_", " ").split()
     capitalized = []
-    acronyms = {"ai", "ml", "dl", "dsa", "sql", "aws", "rag", "llm", "gil", "oop", "crud", "bcnf", "1nf", "2nf", "3nf", "io", "api", "cte", "mae", "mse", "rmse", "dag", "vcs", "ec2", "s3", "iam", "vpc"}
+    acronyms = {
+        "ai", "ml", "dl", "dsa", "sql", "aws", "rag", "llm", "gil", "oop",
+        "crud", "bcnf", "1nf", "2nf", "3nf", "io", "api", "cte", "mae", "mse",
+        "rmse", "dag", "vcs", "ec2", "s3", "iam", "vpc", "nlp", "ner", "pos",
+        "bow", "tfidf", "bert", "rnn", "lstm", "gru", "cnn", "ann", "eda", "cicd", "wsgi"
+    }
     for w in words:
         if w.lower() in acronyms:
             capitalized.append(w.upper())
@@ -145,6 +166,88 @@ def get_content_file(subject_slug: str, file_slug: str):
         "sizeBytes": len(content.encode("utf-8")),
         "headings": headings,
         "content": content,
+    }
+
+
+@router.put("/file/{subject_slug}/{file_slug}")
+def save_content_file(subject_slug: str, file_slug: str, payload: ContentSaveRequest):
+    """
+    Save / update markdown content directly to its respective file under content/<subject_slug>/<file_slug>.md.
+    """
+    clean_subj = re.sub(r'[^a-zA-Z0-9_-]', '', subject_slug)
+    clean_file = re.sub(r'[^a-zA-Z0-9_-]', '', file_slug)
+
+    if not clean_subj or not clean_file:
+        raise HTTPException(status_code=400, detail="Invalid subject or file slug")
+
+    subject_dir = CONTENT_ROOT / clean_subj
+    subject_dir.mkdir(parents=True, exist_ok=True)
+
+    target_file = subject_dir / f"{clean_file}.md"
+    try:
+        target_file.write_text(payload.content, encoding="utf-8")
+    except Exception as e:
+        raise HTTPException(status_code=500, detail=f"Failed to write file: {str(e)}")
+
+    headings = _extract_headings(payload.content)
+    title = _format_title_from_slug(clean_file)
+    if headings and headings[0]["level"] == 1:
+        title = headings[0]["title"]
+
+    return {
+        "subjectSlug": clean_subj,
+        "subjectName": SUBJECT_TITLES.get(clean_subj, _format_title_from_slug(clean_subj)),
+        "fileSlug": clean_file,
+        "title": title,
+        "sizeBytes": len(payload.content.encode("utf-8")),
+        "headings": headings,
+        "content": payload.content,
+        "message": f"Successfully saved to {clean_file}.md",
+    }
+
+
+@router.post("/file/{subject_slug}")
+def create_content_file(subject_slug: str, payload: ContentCreateRequest):
+    """
+    Create a new markdown note file under content/<subject_slug>/<file_slug>.md.
+    """
+    clean_subj = re.sub(r'[^a-zA-Z0-9_-]', '', subject_slug)
+    raw_slug = payload.fileSlug or payload.title or "new-note"
+    clean_file = re.sub(r'[^a-zA-Z0-9_-]', '', raw_slug.lower().replace(" ", "-")).strip("-_")
+    if not clean_file:
+        clean_file = "custom-note"
+
+    if not clean_subj:
+        raise HTTPException(status_code=400, detail="Invalid subject slug")
+
+    subject_dir = CONTENT_ROOT / clean_subj
+    subject_dir.mkdir(parents=True, exist_ok=True)
+
+    target_file = subject_dir / f"{clean_file}.md"
+    
+    file_content = payload.content
+    if payload.title and not file_content.strip().startswith("#"):
+        file_content = f"# {payload.title}\n\n{file_content}"
+
+    try:
+        target_file.write_text(file_content, encoding="utf-8")
+    except Exception as e:
+        raise HTTPException(status_code=500, detail=f"Failed to create file: {str(e)}")
+
+    headings = _extract_headings(file_content)
+    title = payload.title or _format_title_from_slug(clean_file)
+    if headings and headings[0]["level"] == 1:
+        title = headings[0]["title"]
+
+    return {
+        "subjectSlug": clean_subj,
+        "subjectName": SUBJECT_TITLES.get(clean_subj, _format_title_from_slug(clean_subj)),
+        "fileSlug": clean_file,
+        "title": title,
+        "sizeBytes": len(file_content.encode("utf-8")),
+        "headings": headings,
+        "content": file_content,
+        "message": f"Successfully created {clean_file}.md",
     }
 
 

@@ -113,5 +113,36 @@ SUBJECTS_DATA = [
         "isPublished": True,
         "estimated_hours": "35+ hrs",
     },
+    {
+        "name": "Statistics & Probability",
+        "slug": "statistics",
+        "description": "Master descriptive statistics, central tendency, dispersion, probability theory, hypothesis testing (t-tests, p-values), and exploratory data analysis.",
+        "icon": "BarChart2",
+        "order": 12,
+        "difficulty": "Beginner to Intermediate",
+        "isPublished": True,
+        "estimated_hours": "30+ hrs",
+    },
+    {
+        "name": "Natural Language Processing",
+        "slug": "nlp",
+        "description": "Master tokenization, linguistic tagging, NER, TF-IDF, Word2Vec embeddings, RNNs, LSTMs, GRUs, CNNs for text, and fine-tuning BERT.",
+        "icon": "FileText",
+        "order": 13,
+        "difficulty": "Intermediate to Advanced",
+        "isPublished": True,
+        "estimated_hours": "35+ hrs",
+    },
+    {
+        "name": "Model Deployment & MLOps",
+        "slug": "deployment",
+        "description": "Deploy machine learning systems to production with Flask REST APIs, Docker containerization, Gunicorn WSGI, and automated GitHub Actions CI/CD pipelines.",
+        "icon": "Rocket",
+        "order": 14,
+        "difficulty": "Intermediate to Advanced",
+        "isPublished": True,
+        "estimated_hours": "25+ hrs",
+    },
 ]
+
 

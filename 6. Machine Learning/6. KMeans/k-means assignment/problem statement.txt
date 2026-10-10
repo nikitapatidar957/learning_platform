@@ -1,0 +1,5 @@
+Given the dataset and the data dictionary : https://www.kaggle.com/arjunbhasin2013/ccdata/discussion
+1. Do an EDA of the dataset and deal with missing values and outliers(if any)
+2. Using K-means clustering, try to do the clustering of the customers. 
+    Justify your choice of k (number of clusters) using a story/hypothesis and data backing up your hypothesis.
+3. Try to visualize your clusters by taking combinations of features as done in the training session.

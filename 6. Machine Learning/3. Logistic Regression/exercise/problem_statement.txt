@@ -1,0 +1,13 @@
+In the data dictionary, you'll find the data description of all the variables of the dataset. 
+You have to search, study and implement multiclass-logistic regression for this problem and find the following:
+
+accuracy(both train and test accuracy), 
+null accuracy,
+precision, 
+recall, 
+True Positive Rate,
+False Positive Rate,
+Specificity,
+f1-score,
+ROC-AUC curve, 
+Confusion Matrix(extended for all classes)

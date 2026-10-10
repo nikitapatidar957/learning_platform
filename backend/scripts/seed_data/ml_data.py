@@ -47,7 +47,24 @@ ML_TOPICS = [
         "order": 5,
         "isPublished": True,
     },
+    {
+        "subjectSlug": "machine-learning",
+        "title": "Tree-Based Models & Random Forests",
+        "slug": "decision-trees-random-forests",
+        "description": "CART algorithm, splitting criteria (Gini impurity, Entropy), variance reduction, decision tree pruning, and Random Forest bagging.",
+        "order": 6,
+        "isPublished": True,
+    },
+    {
+        "subjectSlug": "machine-learning",
+        "title": "Unsupervised Clustering & Segmentation",
+        "slug": "unsupervised-kmeans-clustering",
+        "description": "K-Means centroid convergence, distance metrics, inertia / WCSS, the Elbow Method, Silhouette score, and customer segmentation.",
+        "order": 7,
+        "isPublished": True,
+    },
 ]
+
 
 ML_LESSONS = [
     # -------------------------------------------------------------------------
@@ -661,5 +678,129 @@ ML_LESSONS = [
                 }
             ]
         }
+    },
+
+    # -------------------------------------------------------------------------
+    # Topic 6: Tree-Based Models & Random Forests
+    # -------------------------------------------------------------------------
+    {
+        "topicSlug": "decision-trees-random-forests",
+        "subjectSlug": "machine-learning",
+        "title": "CART Decision Trees: Gini Impurity, Entropy & Pruning",
+        "slug": "decision-trees-cart",
+        "description": "Understanding tree splitting criteria (Gini vs Entropy), Information Gain, preventing overfitting with max_depth and min_samples_split.",
+        "estimatedTime": "35 mins",
+        "difficulty": "Intermediate",
+        "order": 1,
+        "isPublished": True,
+        "interactiveType": None,
+        "content": {
+            "sections": [
+                {
+                    "type": "explanation",
+                    "title": "Splitting Criteria: Gini Impurity vs Information Gain (Entropy)",
+                    "content": (
+                        "• Gini Impurity: Measures the probability of misclassifying a randomly chosen element from the set:\n"
+                        "  $$Gini = 1 - \\sum_{i=1}^C p_i^2$$\n"
+                        "  Ranges from 0 (pure node) to 0.5 (equal distribution across binary classes). Faster to compute.\n\n"
+                        "• Entropy & Information Gain: Based on Information Theory:\n"
+                        "  $$Entropy = -\\sum_{i=1}^C p_i \\log_2(p_i)$$\n"
+                        "  $$IG(T, a) = Entropy(T) - Entropy(T|a)$$"
+                    )
+                },
+                {
+                    "type": "code",
+                    "title": "Training a Decision Tree Classifier with Pre-pruning",
+                    "language": "python",
+                    "code": (
+                        "from sklearn.tree import DecisionTreeClassifier\n"
+                        "from sklearn.datasets import load_iris\n\n"
+                        "X, y = load_iris(return_X_y=True)\n\n"
+                        "# Pre-pruning parameters prevent memorizing the training set\n"
+                        "dt = DecisionTreeClassifier(\n"
+                        "    criterion='gini',\n"
+                        "    max_depth=4,\n"
+                        "    min_samples_split=10,\n"
+                        "    min_samples_leaf=5,\n"
+                        "    random_state=42\n"
+                        ")\n"
+                        "dt.fit(X, y)\n"
+                        "print('Feature Importances:', dt.feature_importances_)"
+                    )
+                }
+            ]
+        }
+    },
+    {
+        "topicSlug": "decision-trees-random-forests",
+        "subjectSlug": "machine-learning",
+        "title": "Random Forests: Bootstrap Aggregation & Feature Subsampling",
+        "slug": "random-forest-classifier",
+        "description": "How Random Forest decorrelates decision trees with Bagging and random feature subsets to produce low-variance predictions.",
+        "estimatedTime": "35 mins",
+        "difficulty": "Intermediate",
+        "order": 2,
+        "isPublished": True,
+        "interactiveType": None,
+        "content": {
+            "sections": [
+                {
+                    "type": "explanation",
+                    "title": "The Random Forest Magic: Two Sources of Randomness",
+                    "content": (
+                        "1. Bootstrap Sampling: Each tree is trained on a random sample drawn with replacement from the original dataset (about 63.2% unique rows).\n\n"
+                        "2. Random Feature Subsampling: At every split, the algorithm only considers a random subset of $m \\approx \\sqrt{p}$ features. "
+                        "This decorrelates the individual trees so that dominant features don't dictate all tree root nodes."
+                    )
+                }
+            ]
+        }
+    },
+
+    # -------------------------------------------------------------------------
+    # Topic 7: Unsupervised Clustering & Segmentation
+    # -------------------------------------------------------------------------
+    {
+        "topicSlug": "unsupervised-kmeans-clustering",
+        "subjectSlug": "machine-learning",
+        "title": "K-Means Clustering: Inertia, WCSS & The Elbow Method",
+        "slug": "kmeans-clustering-elbow-method",
+        "description": "Iterative centroid updates, Within-Cluster Sum of Squares (WCSS), finding optimal K via the Elbow Method, and customer segmentation.",
+        "estimatedTime": "35 mins",
+        "difficulty": "Intermediate",
+        "order": 1,
+        "isPublished": True,
+        "interactiveType": None,
+        "content": {
+            "sections": [
+                {
+                    "type": "explanation",
+                    "title": "The K-Means Clustering Algorithm",
+                    "content": (
+                        "1. Initialization: Randomly place $K$ centroids in the feature space (or use `k-means++` for smart spread).\n"
+                        "2. Assignment: Assign each data point to its nearest centroid using Euclidean distance.\n"
+                        "3. Update: Recompute the location of each centroid by taking the mean of all points assigned to that cluster.\n"
+                        "4. Convergence: Repeat steps 2 and 3 until centroid movements are smaller than a threshold $\\epsilon$ or max iterations reached."
+                    )
+                },
+                {
+                    "type": "code",
+                    "title": "Finding Optimal Clusters using the Elbow Method in Python",
+                    "language": "python",
+                    "code": (
+                        "from sklearn.cluster import KMeans\n"
+                        "import numpy as np\n\n"
+                        "X = np.random.rand(100, 2)\n\n"
+                        "wcss = []\n"
+                        "for k in range(1, 10):\n"
+                        "    kmeans = KMeans(n_clusters=k, init='k-means++', random_state=42)\n"
+                        "    kmeans.fit(X)\n"
+                        "    wcss.append(kmeans.inertia_)\n\n"
+                        "print('WCSS for k=1 to 9:', [round(val, 2) for val in wcss])"
+                    )
+                }
+            ]
+        }
     }
 ]
+

@@ -42,15 +42,6 @@ ADVANCED_TOPICS = [
         "order": 1,
         "isPublished": True,
     },
-    # Deep Learning Topics
-    {
-        "subjectSlug": "deep-learning",
-        "title": "Neural Network Fundamentals & Backprop",
-        "slug": "neural-network-training",
-        "description": "Perceptrons, multi-layer networks, activation functions, forward propagation, calculus chain rule backpropagation, and optimizers.",
-        "order": 1,
-        "isPublished": True,
-    },
     # MongoDB Topics
     {
         "subjectSlug": "mongodb",
@@ -487,105 +478,6 @@ ADVANCED_LESSONS = [
                         "• Episodic Memory: Memory of previous user interactions and past conversation trajectories stored in persistent databases.\n"
                         "• Semantic Memory: Facts, world knowledge, and corporate handbooks retrieved on-demand via vector search."
                     )
-                }
-            ]
-        }
-    },
-
-    # -------------------------------------------------------------------------
-    # Deep Learning Lessons
-    # -------------------------------------------------------------------------
-    {
-        "topicSlug": "neural-network-training",
-        "subjectSlug": "deep-learning",
-        "title": "Perceptrons & Multi-Layer Neural Networks",
-        "slug": "perceptrons-multi-layer-networks",
-        "description": "Understand the artificial neuron, linear combinations (z = Wx + b), and why non-linear activation functions are mandatory.",
-        "estimatedTime": "25 mins",
-        "difficulty": "Intermediate",
-        "order": 1,
-        "isPublished": True,
-        "interactiveType": None,
-        "content": {
-            "sections": [
-                {
-                    "type": "explanation",
-                    "title": "The Perceptron: Building Block of Deep Learning",
-                    "content": (
-                        "Proposed by Frank Rosenblatt in 1958, a perceptron models an individual biological neuron:\n\n"
-                        "1. Inputs (x₁, x₂, ..., xₙ) are multiplied by respective Weights (w₁, w₂, ..., wₙ).\n"
-                        "2. Weighted inputs are summed with a Bias term (b): z = Σ (wᵢ * xᵢ) + b.\n"
-                        "3. The net input z is passed through an Activation Function a = σ(z) to produce the final output."
-                    )
-                },
-                {
-                    "type": "explanation",
-                    "title": "Why Are Non-Linear Activation Functions Mandatory?",
-                    "content": (
-                        "Without non-linear activations (like ReLU, Sigmoid, Tanh), a 100-layer neural network is mathematically identical to a single 1-layer linear regression! "
-                        "Because the combination of linear functions is always just another linear function: W₂(W₁x) = (W₂W₁)x = W_combined x.\n\n"
-                        "Non-linearities allow the network to approximate any continuous function (Universal Approximation Theorem), "
-                        "bending decision boundaries around complex non-linear patterns."
-                    )
-                },
-                {
-                    "type": "code",
-                    "title": "Popular Activation Functions in Python",
-                    "language": "python",
-                    "code": (
-                        "import numpy as np\n\n"
-                        "# 1. ReLU (Rectified Linear Unit): Standard in hidden layers (prevents vanishing gradients)\n"
-                        "def relu(z):\n"
-                        "    return np.maximum(0, z)\n\n"
-                        "# 2. Sigmoid: Outputs probability in [0, 1] (binary classification output layer)\n"
-                        "def sigmoid(z):\n"
-                        "    return 1 / (1 + np.exp(-z))\n\n"
-                        "# 3. Softmax: Outputs probability distribution over k classes (sum = 1.0)\n"
-                        "def softmax(z):\n"
-                        "    exp_z = np.exp(z - np.max(z))\n"
-                        "    return exp_z / np.sum(exp_z)"
-                    )
-                }
-            ]
-        }
-    },
-    {
-        "topicSlug": "neural-network-training",
-        "subjectSlug": "deep-learning",
-        "title": "Forward Propagation, Loss & Backpropagation",
-        "slug": "forward-backpropagation-chain-rule",
-        "description": "Master forward activation computation, cross-entropy loss, and computing weight gradients via the calculus chain rule.",
-        "estimatedTime": "35 mins",
-        "difficulty": "Intermediate to Advanced",
-        "order": 2,
-        "isPublished": True,
-        "interactiveType": None,
-        "content": {
-            "sections": [
-                {
-                    "type": "explanation",
-                    "title": "Forward Pass vs Backward Pass",
-                    "content": (
-                        "• Forward Propagation: Input features flow layer by layer through linear transforms and activation functions to compute predicted probabilities ŷ, "
-                        "and compare with actual target y using a Loss Function (e.g., Binary Cross-Entropy).\n\n"
-                        "• Backward Propagation: The process of propagating the error backwards from the output layer to early layers using the Calculus Chain Rule, "
-                        "calculating the partial derivative of Loss with respect to every single weight: ∂L/∂W."
-                    )
-                },
-                {
-                    "type": "explanation",
-                    "title": "The Chain Rule in Action",
-                    "content": (
-                        "For a 2-layer network: Input x ➔ Layer 1 (z₁ = W₁x, a₁ = σ(z₁)) ➔ Layer 2 (z₂ = W₂a₁, ŷ = σ(z₂)) ➔ Loss L(y, ŷ).\n\n"
-                        "To compute how changing weight W₁ affects the final Loss L, we chain the gradients:\n\n"
-                        "∂L / ∂W₁ = (∂L / ∂ŷ) * (∂ŷ / ∂z₂) * (∂z₂ / ∂a₁) * (∂a₁ / ∂z₁) * (∂z₁ / ∂W₁)\n\n"
-                        "Each layer computes its local gradient and passes the incoming error gradient back to the preceding layer."
-                    )
-                },
-                {
-                    "type": "callout",
-                    "variant": "info",
-                    "content": "Modern Optimizers: SGD (basic), Momentum (accelerates in consistent directions), RMSProp (adapts learning rate per parameter), Adam (Adaptive Moment Estimation: combines Momentum + RMSProp, the industry standard)."
                 }
             ]
         }
